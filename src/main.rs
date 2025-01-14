@@ -1,7 +1,7 @@
 use clap::Parser;
+use std::net::SocketAddr;
 use std::net::TcpStream;
 use std::time::Duration;
-use std::net::SocketAddr;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -26,16 +26,8 @@ fn scan(ip: &str, from_port: u16, to_port: u16) {
                 if TcpStream::connect_timeout(&address, Duration::from_millis(100)).is_ok() {
                     println!("Port {} is open", port);
                 }
-            },
+            }
             Err(err) => println!("Invalid IP address: {}", err),
         }
-        // if let Ok(address) = format!("{}:{}", ip, port).parse() {
-        //     println!("Scanning port {}", port);
-        // }
-
-        // match TcpStream::connect_timeout(&address.parse().expect("Invalid IP address"), Duration::from_millis(100)) {
-        //     Ok(_) => println!("Port {} is open", port),
-        //     Err(_) => continue,
-        // }
     }
 }
